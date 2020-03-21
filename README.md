@@ -5,6 +5,7 @@
 B.7 Project 5 from Mark Joshi's "The Concepts and practice of mathematical finance", published by Cambridge University Press.
 
 ### Features
+* **Vanilla options**
 * **Arithmetic Asian options**
 * **Discrete barrier options**
 * **Antithetic variates**

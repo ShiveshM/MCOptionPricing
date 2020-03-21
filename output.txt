@@ -1,0 +1,71 @@
+==================
+Pricing Asian options
+==================
+(i) = 1.4101 +- 0.0569 with 10000 trials
+(i) = 1.4339 +- 0.0191 with 100000 trials
+(i) = 1.4292 +- 0.0060 with 1000000 trials
+==================
+(ii) = 1.4344 +- 0.0381 with 10000 trials
+(ii) = 1.3561 +- 0.0114 with 100000 trials
+(ii) = 1.3582 +- 0.0036 with 1000000 trials
+==================
+(iii) = 1.3944 +- 0.1291 with 10000 trials
+(iii) = 1.4562 +- 0.0388 with 100000 trials
+(iii) = 1.4790 +- 0.0124 with 1000000 trials
+==================
+How do the prices compare?
+We see that Asian options with more frequent setting dates are more expensive.
+This is because the averaging is less pronounced with more setting dates,
+making the Asian option more volatile.
+==================
+(vanilla) = 3.5564 +- 0.0471 with 10000 trials
+(vanilla) = 3.5470 +- 0.0148 with 100000 trials
+(vanilla) = 3.5491 +- 0.0047 with 1000000 trials
+==================
+How do the prices compare with a vanilla option?
+We see that Asian options are cheaper than vanilla options.
+This is because Asian options are less volatile, due to the averaging feature -
+the volatility of the averaged price is less volatile than the spot price.
+==================
+How does the speed of convergence vary?
+The rate of convergence is faster for sparser date settings, as seen by the
+standard error. More dense date settings converge slower as the timing
+evolution needs to be simulated. For the same reason, vanilla options converge
+the fastest.
+==================
+Pricing discrete barrier options
+==================
+(i) = 3.5064 +- 0.1214 with 10000 trials
+(i) = 3.5232 +- 0.0376 with 100000 trials
+(i) = 3.5354 +- 0.0119 with 1000000 trials
+==================
+(ii) = 0.0028 +- 0.0025 with 10000 trials
+(ii) = 0.0021 +- 0.0007 with 100000 trials
+(ii) = 0.0017 +- 0.0002 with 1000000 trials
+==================
+(iii) = 4.3125 +- 0.0856 with 10000 trials
+(iii) = 4.1930 +- 0.0282 with 100000 trials
+(iii) = 4.2188 +- 0.0089 with 1000000 trials
+==================
+(iv) = 0.0000 +- 0.0000 with 10000 trials
+(iv) = 0.0000 +- 0.0000 with 100000 trials
+(iv) = 0.0000 +- 0.0000 with 1000000 trials
+==================
+(vanilla call) = 3.5461 +- 0.0469 with 10000 trials
+(vanilla call) = 3.5543 +- 0.0148 with 100000 trials
+(vanilla call) = 3.5452 +- 0.0047 with 1000000 trials
+==================
+(vanilla put) = 4.5581 +- 0.0381 with 10000 trials
+(vanilla put) = 4.5026 +- 0.0118 with 100000 trials
+(vanilla put) = 4.5036 +- 0.0037 with 1000000 trials
+==================
+Compare prices and speed of convergence. Also compare prices with
+the vanilla option.
+Similar to Asian options, the rate of convergence is faster for sparser date
+settings. Vanilla options converge the fastest.
+Discrete barrier options can be much cheaper than vanilla options. This is
+because these type of options offer less flexibility compared to vanilla
+options, and thus this is priced in.
+==================
+Shivesh Mandalia https://shivesh.org/
+==================

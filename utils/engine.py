@@ -51,7 +51,7 @@ class PricingEngine:
     >>> payoff = AsianArithmeticPayOff(option_right='Call', K=110)
     >>> engine = PricingEngine(payoff=payoff, path=path)
     >>> print(engine.price(T=range(4)))
-    2.1462567745518335
+    MCResult(price=12.003704847790525, stderr=0.2327352760696234)
 
     """
     payoff: BasePayoff

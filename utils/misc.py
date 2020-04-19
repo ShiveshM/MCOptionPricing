@@ -7,24 +7,31 @@
 Miscellaneous utility methods.
 """
 
+from typing import Any, Union
 
-__all__ = ['is_num', 'is_pos']
+
+__all__ = ['Number', 'is_num', 'is_pos']
 
 
-def is_num(val: (int, float)) -> bool:
+_T = (int, float)
+Number = Union[int, float]
+
+
+def is_num(val: Any) -> bool:
     """
-    Check if the input value is a non-infinite number.
+    Check if the input value is a finite number.
 
     Parameters
     ----------
-    val : Value to check.
+    val : object
+        Value to check.
 
     Returns
-    ----------
-    is_num : Whether it is a non-infinite number.
+    -------
+    bool
 
     Examples
-    ----------
+    --------
     >>> from utils.misc import is_num
     >>> print(is_num(10))
     True
@@ -32,25 +39,26 @@ def is_num(val: (int, float)) -> bool:
     False
 
     """
-    if not isinstance(val, (int, float)):
+    if not isinstance(val, _T):
         return False
     return True
 
 
-def is_pos(val: (int, float)) -> bool:
+def is_pos(val: Any) -> bool:
     """
-    Check if the input value is a non-infinite positive number.
+    Check if the input value is a finite positive number.
 
     Parameters
     ----------
-    val : Value to check.
+    val : object
+        Value to check.
 
     Returns
-    ----------
-    is_pos : Whether it is a non-infinite positive number.
+    -------
+    bool
 
     Examples
-    ----------
+    --------
     >>> from utils.misc import is_pos
     >>> print(is_pos(10))
     True

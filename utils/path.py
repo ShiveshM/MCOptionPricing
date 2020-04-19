@@ -11,7 +11,9 @@ import math
 import random
 from copy import deepcopy
 from dataclasses import dataclass
-from typing import List, Tuple
+from typing import List, Sequence, Tuple
+
+from utils.misc import Number
 
 
 __all__ = ['PathGenerator']
@@ -24,14 +26,18 @@ class PathGenerator:
 
     Attributes
     ----------
-    S : Spot price.
-    r : Risk-free interest rate.
-    div : Dividend yield.
-    vol : Volatility.
-    net_r : Net risk free rate.
+    S : Number
+        Spot price.
+    r : Number
+        Risk-free interest rate.
+    div : Number
+        Dividend yield.
+    vol : Number
+        Volatility.
+    net_r
 
     Methods
-    ----------
+    -------
     generate(T)
         Generate a random path {S_t1, S_t2, ..., S_tn}.
     generate_antithetic(T)
@@ -39,42 +45,51 @@ class PathGenerator:
         [{S_t1, S_t2, ..., S_tn}, {S'_t1, S'_t2, ..., S'_tn}].
 
     Examples
-    ----------
+    --------
     >>> from utils.path import PathGenerator
     >>> path = PathGenerator(S=100., r=0.1, div=0.01, vol=0.3)
-    >>> print(path.generate(T=range(4)))
-    [100.0, 100.33539853588853, 122.76017088387074, 142.29540684005462]
-    >>> print(path.generate(T=range(4)))
-    [100.0, 73.03094019139712, 77.37310245438943, 66.54240939439934]
+    >>> print(path)
+    PathGenerator(S=100.0, r=0.1, div=0.01, vol=0.3)
 
     """
-    S: float
-    r: float
-    div: float
-    vol: float
+    S: Number
+    r: Number
+    div: Number
+    vol: Number
 
     @property
     def net_r(self) -> float:
         """Net risk free rate."""
-        return self.r - self.div
+        return float(self.r - self.div)
 
-    def generate(self, T: List[float]) -> List[float]:
+    def generate(self, T: Sequence[Number]) -> List[float]:
         """
         Generate a random path {S_t1, S_t2, ..., S_tn}.
 
         Parameters
         ----------
-        T : Set of times {t1, t2, ..., tn} in years.
+        T : Sequence of Numbers
+            Set of times {t1, t2, ..., tn} in years.
 
         Returns
-        ----------
-        spot_prices : Set of prices for the underlying {S_t1, S_t2, ..., S_tn}.
+        -------
+        spot_prices : List of floats
+            Set of prices for the underlying {S_t1, S_t2, ..., S_tn}.
+
+        Examples
+        --------
+        >>> from utils.path import PathGenerator
+        >>> path = PathGenerator(S=100., r=0.1, div=0.01, vol=0.3)
+        >>> print(path.generate(T=range(4)))
+        [100.0, 100.33539853588853, 122.76017088387074, 142.29540684005462]
+        >>> print(path.generate(T=range(4)))
+        [100.0, 73.03094019139712, 77.37310245438943, 66.54240939439934]
 
         """
         # Calculate dt time differences
         dts = [T[idx + 1] - T[idx] for idx in range(len(T) - 1)]
 
-        spot_prices = [0] * len(T)
+        spot_prices: List[float] = [0] * len(T)
         spot_prices[0] = self.S
         for idx, dt in enumerate(dts):
             # Calculate the drift e^{(r - (1/2) σ²) Δt}
@@ -89,27 +104,41 @@ class PathGenerator:
             spot_prices[idx + 1] = S_t
         return spot_prices
 
-    def generate_antithetic(self, T: List[float]) -> Tuple[List[float],
-                                                           List[float]]:
+    def generate_antithetic(
+            self, T: Sequence[Number]
+    ) -> Tuple[List[float], List[float]]:
         """
         Generate a random plus antithetic path
         [{S_t1, S_t2, ..., S_tn}, {S'_t1, S'_t2, ..., S'_tn}].
 
         Parameters
         ----------
-        T : Set of times {t1, t2, ..., tn} in years.
+        T : Sequence of Numbers
+            Set of times {t1, t2, ..., tn} in years.
 
         Returns
-        ----------
-        prices_tuple : Set of prices for the underlying
-                       [{S_t1, S_t2, ..., S_tn}, {S'_t1, S'_t2, ..., S'_tn}].
+        -------
+        prices_tuple : Tuple of two Lists of floats
+            Set of prices for the underlying
+            [{S_t1, S_t2, ..., S_tn}, {S'_t1, S'_t2, ..., S'_tn}].
+
+        Examples
+        --------
+        >>> from utils.path import PathGenerator
+        >>> path = PathGenerator(S=100., r=0.1, div=0.01, vol=0.3)
+        >>> print(path.generate_antithetic(T=range(4)))
+        ([100.0, 106.30304144532359, 122.02501765852367, 108.71120035365013],
+         [100.0, 102.92972513566257, 98.11245153613649, 120.49949282794978])
+        >>> print(path.generate_antithetic(T=range(4)))
+        ([100.0, 130.1595970941697, 103.35241529329348, 93.58800177914543],
+         [100.0, 84.06404968460234, 115.83835362960282, 139.97140935058962])
 
         """
         # Calculate dt time differences
         dts = [T[idx + 1] - T[idx] for idx in range(len(T) - 1)]
 
         # Create data structures
-        spot_prices = [0] * len(T)
+        spot_prices: List[float] = [0] * len(T)
         spot_prices[0] = self.S
 
         a_spot_prices = deepcopy(spot_prices)

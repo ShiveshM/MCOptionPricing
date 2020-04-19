@@ -210,11 +210,10 @@ options, and thus this is priced in.''')
 
 
 def main() -> None:
-    """Main function."""
     random.seed(1)
 
     # Define number of trials to run
-    ntrials_arr = [1E4, 1E5, 1E6]
+    ntrials_arr = list(map(int, [1e4, 1e5, 1e6]))
 
     # Pricing Asian options
     asian_options(ntrials_arr)

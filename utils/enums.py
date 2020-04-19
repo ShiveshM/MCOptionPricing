@@ -9,6 +9,7 @@ Enumeration utility classes.
 
 from enum import Enum, auto
 
+
 __all__ = ['OptionRight', 'BarrierUpDown', 'BarrierInOut']
 
 

@@ -52,6 +52,7 @@ class PathGenerator:
     PathGenerator(S=100.0, r=0.1, div=0.01, vol=0.3)
 
     """
+    __slots__ = 'S', 'r', 'div', 'vol'
     S: Number
     r: Number
     div: Number

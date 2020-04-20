@@ -24,6 +24,7 @@ __all__ = [
 
 class BasePayoff(ABC):
     """Base class for calculating the payoff."""
+    __slots__ = 'K', '_option_right'
 
     def __init__(self, K: Number,
                  option_right: Union[AnyStr, OptionRight]) -> None:
@@ -244,11 +245,12 @@ class DiscreteBarrierPayOff(BasePayoff):
     DiscreteBarrierPayOff(K=100, option_right=Call, B=90, barrier_updown=Down, barrier_inout=Out)
 
     """
+    __slots__ = 'K', '_option_right', 'B', '_barrier_updown', '_barrier_inout'
 
     def __init__(
             self,
-            option_right: Union[AnyStr, OptionRight],
             K: Number,
+            option_right: Union[AnyStr, OptionRight],
             B: Number,
             barrier_updown: Union[AnyStr, BarrierUpDown],
             barrier_inout: Union[AnyStr, BarrierInOut]

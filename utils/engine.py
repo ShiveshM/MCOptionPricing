@@ -33,6 +33,7 @@ class MCResult:
         MC standard error.
 
     """
+    __slots__ = ['price', 'stderr']
     price: float
     stderr: float
 
@@ -67,6 +68,7 @@ class PricingEngine:
                   path=PathGenerator(S=100.0, r=0.1, div=0.01, vol=0.3))
 
     """
+    __slots__ = 'payoff', 'path'
     payoff: BasePayoff
     path: PathGenerator
 

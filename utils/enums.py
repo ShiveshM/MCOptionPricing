@@ -25,17 +25,17 @@ class PPEnum(Enum):
 
 class OptionRight(PPEnum):
     """Right of an option."""
-    Call = auto()
-    Put = auto()
+    Call: int = auto()
+    Put: int = auto()
 
 
 class BarrierUpDown(PPEnum):
     """Up or down type barrier option."""
-    Up = auto()
-    Down = auto()
+    Up: int = auto()
+    Down: int = auto()
 
 
 class BarrierInOut(PPEnum):
     """In or out type barrier option."""
-    In = auto()
-    Out = auto()
+    In: int = auto()
+    Out: int = auto()
